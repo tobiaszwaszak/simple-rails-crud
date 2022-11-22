@@ -1,0 +1,18 @@
+---
+default: &default
+  adapter: postgresql
+  encoding: unicode
+  pool: <%= [5, *ENV.values_at("RAILS_MAX_THREADS", "SIDEKIQ_CONCURRENCY")].map(&:to_i).max %>
+
+development:
+  <<: *default
+  database: crud-rails_development
+
+test:
+  <<: *default
+  database: crud-rails_test
+
+production:
+  <<: *default
+  url: <%= ENV["DATABASE_URL"] %>
+
